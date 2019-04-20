@@ -2,20 +2,19 @@
   "name": "@egret/protobufjs-pro",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "mocha"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "protobufjs": "^6.8.8"
-  },
-  "devDependencies": {
+    "protobufjs": "^6.8.8",
     "escodegen": "^1.11.1",
     "espree": "^5.0.1",
     "estraverse": "^4.2.0",
     "mocha": "^6.1.4",
     "uglify-js": "^3.5.5"
-  }
+  },
+  "devDependencies": {}
 }
