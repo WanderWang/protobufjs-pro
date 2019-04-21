@@ -12,11 +12,7 @@ describe('title', () => {
         // var payload = { awesomeField: "AwesomeString" };
         var message1 = AwesomeMessage.create({});
         var buffer = AwesomeMessage.encode(message1).finish();
-        let jsContent = await mylib.generateProto('test', ['test.proto']);
-        jsContent = `
-        var $protobuf = require('protobufjs');
-        $protobuf.roots.default=global;
-        ` + jsContent;
+        let { jsContent, dtsContent, json } = await mylib.generateProto({ files: ['test.proto'], path: "test", mode: "module" });
         eval(jsContent);
         fs.writeFileSync('output.js', jsContent, 'utf-8');
         // console.log(jsContent)
