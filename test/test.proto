@@ -5,4 +5,10 @@ syntax = "proto3";
 message AwesomeMessage {
   string awesome_field = 1;   // becomes awesomeField
   string awesome_field_2 = 2; // becomes awesomeField
+  repeated SubObject subObject = 3;
+}
+
+message SubObject {
+  string name = 1;
+  string sex = 2;
 }
