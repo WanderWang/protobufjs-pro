@@ -64,8 +64,8 @@ exports.toObject = function toObject(mtype) {
                     ("if(o.bytes!==Array)d%s=util.newBuffer(d%s)", prop, prop)
                     ("}");
             } else {
-                // gen
-                //     ("d%s=%j", prop, field.typeDefault); // also messages (=null)
+                gen
+                    ("d%s=%j", prop, field.typeDefault); // also messages (=null)
             }
         }
         //  gen
@@ -95,8 +95,8 @@ exports.toObject = function toObject(mtype) {
             // ("}");
         } else {
             gen
-                ("{")
-            // ("{", prop, field.name); // !== undefined && !== null
+                // ("{")
+                ("if(m%s!=null){", prop); // !== undefined && !== null
             // ("if(m%s!=null&&m.hasOwnProperty(%j)){", prop, field.name); // !== undefined && !== null
             genValuePartial_toObject(gen, field, /* sorted */ index, prop);
             if (field.partOf) gen

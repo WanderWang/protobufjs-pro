@@ -12,3 +12,7 @@ message SubObject {
   string name = 1;
   string sex = 2;
 }
+
+message MyRequest { repeated SubObject subObject = 1; }
+
+message MyResponse { repeated SubObject subObject = 1; }

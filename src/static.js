@@ -456,24 +456,24 @@ function buildType(ref, type) {
         push("});");
     });
 
-    if (config.create) {
-        push("");
-        pushComment([
-            "Creates a new " + type.name + " instance using the specified properties.",
-            "@function create",
-            "@memberof " + exportName(type),
-            "@static",
-            "@param {" + exportName(type, true) + "=} [properties] Properties to set",
-            "@returns {" + exportName(type) + "} " + type.name + " instance"
-        ]);
-        push(escapeName(type.name) + ".create = function create(properties) {");
-        ++indent;
-        push("return new " + escapeName(type.name) + "(properties);");
-        --indent;
-        push("};");
-    }
+    // if (config.create) {
+    //     push("");
+    //     pushComment([
+    //         "Creates a new " + type.name + " instance using the specified properties.",
+    //         "@function create",
+    //         "@memberof " + exportName(type),
+    //         "@static",
+    //         "@param {" + exportName(type, true) + "=} [properties] Properties to set",
+    //         "@returns {" + exportName(type) + "} " + type.name + " instance"
+    //     ]);
+    //     push(escapeName(type.name) + ".create = function create(properties) {");
+    //     ++indent;
+    //     push("return new " + escapeName(type.name) + "(properties);");
+    //     --indent;
+    //     push("};");
+    // }
 
-    if (config.encode) {
+    if (config.encode && needEncode(type)) {
         push("");
         pushComment([
             "Encodes the specified " + type.name + " message. Does not implicitly {@link " + exportName(type) + ".verify|verify} messages.",
@@ -505,7 +505,7 @@ function buildType(ref, type) {
         }
     }
 
-    if (config.decode) {
+    if (config.decode && needDecode(type)) {
         push("");
         pushComment([
             "Decodes " + aOrAn(type.name) + " message from the specified reader or buffer.",
@@ -557,7 +557,7 @@ function buildType(ref, type) {
         buildFunction(type, "verify", protobuf.verifier(type));
     }
 
-    if (config.convert) {
+    if (config.convert && needDecode(type)) {
         // push("");
         // pushComment([
         //     "Creates " + aOrAn(type.name) + " message from a plain object. Also converts values to their respective internal types.",
@@ -712,4 +712,14 @@ function buildEnum(ref, enm) {
     push("return values;");
     --indent;
     push("})();");
+}
+
+
+function needEncode(type) {
+    return type.name.indexOf("Response") == -1;
+    // return true;
+}
+
+function needDecode(type) {
+    return type.name.indexOf("Request") == -1;;
 }
